@@ -1,0 +1,40 @@
+.navbar__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar__menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+}
+
+.navbar__exclusive {
+  margin-left: 250px;
+  cursor: pointer;
+}
+
+.navbar__search {
+  position: relative;
+}
+
+.navbar__search input {
+  padding: 10px;
+  padding-left: 35px;
+  margin-right: 20px;
+  border: none;
+  background-color: #eeecec;
+}
+
+.navbar__search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #757474;
+}
+.navbar__cursor {
+  cursor: pointer;
+}

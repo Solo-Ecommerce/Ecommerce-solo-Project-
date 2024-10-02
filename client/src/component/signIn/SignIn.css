@@ -1,0 +1,58 @@
+.signIn__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 90px;
+}
+
+.button__signin {
+  background-color: #db4444;
+  font-size: 15px;
+  color: white;
+  padding: 13px 50px;
+}
+.navbar__details {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.navbar__details__below {
+  margin-top: 20px;
+}
+.inputStyle {
+  border: none;
+  border-bottom: 1px solid grey;
+}
+.button__google {
+  background-color: white;
+  border: 1px solid grey;
+  padding: 10px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.navbar__title {
+  font-size: 30px;
+}
+.singn__login {
+  text-decoration: none;
+  color: black;
+}
+.button__haveaccount {
+  display: flex;
+  gap: 10px;
+}
+.google__icon__signin {
+  width: 20px;
+  height: 20px;
+  justify-content: center;
+}
+
+.google__icon__icon__signin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}

@@ -47,10 +47,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       defaultValue: 0,
     },
-    quantity: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
+    // quantity: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: false,
+    // },
   });
 
   return Product;
