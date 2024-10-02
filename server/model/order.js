@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const Wishlist = sequelize.define("Wishlist", {
-    wishlistId: {
+  const Order = sequelize.define("order", {
+    orderId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -13,15 +13,24 @@ module.exports = (sequelize, DataTypes) => {
       },
       allowNull: false,
     },
-    productId: {
+    status: {
+      type: DataTypes.ENUM("pending", "shipped", "delivered"),
+      allowNull: false,
+      defaultValue: "pending",
+    },
+    totalPrice: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+    },
+    paymentId: {
       type: DataTypes.INTEGER,
       references: {
-        model: "products",
+        model: "payments",
         key: "id",
       },
       allowNull: false,
     },
   });
 
-  return Wishlist;
+  return Order;
 };
