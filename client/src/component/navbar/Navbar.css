@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 2.5rem;
 }
 
 .navbar__menu {
@@ -12,8 +13,10 @@
 }
 
 .navbar__exclusive {
-  margin-left: 250px;
+  margin-left: 15rem;
   cursor: pointer;
+  font-size: bold;
+  font-size: 2.5rem;
 }
 
 .navbar__search {
@@ -22,8 +25,8 @@
 
 .navbar__search input {
   padding: 10px;
-  padding-left: 35px;
-  margin-right: 20px;
+  padding-left: 3rem;
+  margin-right: 4rem;
   border: none;
   background-color: #eeecec;
 }
