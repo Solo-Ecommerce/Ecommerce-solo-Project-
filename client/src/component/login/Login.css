@@ -1,0 +1,90 @@
+.signin__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 70px;
+  margin-top: 90px;
+}
+.login__title {
+  font-weight: bold;
+  font-size: 20px;
+}
+.detail__1__singnin,
+.detail__2__singnin {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.enter__details__signin {
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
+}
+
+.button__signin {
+  background-color: #db4444;
+  font-size: 15px;
+  color: white;
+  padding: 13px 50px;
+  margin-top: 30px;
+}
+
+.login__details {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.login__details__below {
+  margin-top: 20px;
+  /* margin-left: 80px; */
+}
+
+.inputStyle {
+  border: none;
+  border-bottom: 1px solid grey;
+}
+
+.button__google {
+  background-color: white;
+  border: 1px solid grey;
+  padding: 10px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.navbar__title {
+  font-size: 30px;
+  margin-left: 150px;
+}
+
+.singn__login {
+  text-decoration: none;
+  color: black;
+}
+
+.button__haveaccount {
+  display: flex;
+  gap: 10px;
+}
+
+.google__icon__signin {
+  width: 20px;
+  height: 20px;
+}
+
+.google__icon__icon__signin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+}

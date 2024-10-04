@@ -5,6 +5,21 @@
   gap: 50px;
   margin-top: 90px;
 }
+.detail__1__singnin {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.detail__2__singnin {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.enter__details__signin {
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
+}
 
 .button__signin {
   background-color: #db4444;
@@ -19,6 +34,7 @@
 }
 .navbar__details__below {
   margin-top: 20px;
+  margin-left: 150px;
 }
 .inputStyle {
   border: none;
@@ -35,6 +51,7 @@
 }
 .navbar__title {
   font-size: 30px;
+  margin-left: 150px;
 }
 .singn__login {
   text-decoration: none;
@@ -55,4 +72,10 @@
   align-items: center;
   justify-content: center;
   gap: 20px;
+}
+.login__error__message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
 }
