@@ -1,0 +1,13 @@
+.admin__dashbord__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.admin__navbar__adminHomePage {
+  background-color: black;
+  height: 100%;
+  width: 100%;
+  color: white;
+  text-align: center;
+  padding: 10px 15px;
+}

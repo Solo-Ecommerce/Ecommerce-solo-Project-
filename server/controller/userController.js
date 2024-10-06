@@ -160,7 +160,6 @@ const getOneUser = async (req, res) => {
   }
 };
 
-// Delete a user by ID
 const deleteUser = async (req, res) => {
   try {
     let userId = req.params.id;

@@ -19,38 +19,46 @@ module.exports = (sequelize, DataTypes) => {
     },
     images: {
       type: DataTypes.JSON,
-      allowNull: true,
+      allowNull: false,
       validate: {
         isArrayOfImages(value) {
-          if (
-            !Array.isArray(value) ||
-            value.some((url) => typeof url !== "string")
-          ) {
-            throw new Error("Images must be an array of strings.");
+          if (!Array.isArray(value)) {
+            throw new Error("Images must be an array.");
           }
+          if (value.length < 3) {
+            throw new Error("At least 3 images are required.");
+          }
+          value.forEach((url) => {
+            if (typeof url !== "string") {
+              throw new Error("Each image URL must be a string.");
+            }
+          });
         },
       },
     },
     category: {
-      type: DataTypes.ENUM("sports", "electronics", "fashion", "beauty"),
+      type: DataTypes.ENUM(
+        "Soins de la peau",
+        "Soins des cheveux",
+        "Soins des yeux",
+        "Soins des pieds",
+        "Cosmétiques"
+      ),
       allowNull: false,
     },
     averageRating: {
       type: DataTypes.DECIMAL(3, 2),
-      defaultValue: 0,
+      defaultValue: 1.0, // Set default to 1.0 to meet min validation
       validate: {
         min: 1.0,
         max: 5.0,
       },
     },
+
     ratingsCount: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
     },
-    // quantity: {
-    //   type: DataTypes.INTEGER,
-    //   allowNull: false,
-    // },
   });
 
   return Product;

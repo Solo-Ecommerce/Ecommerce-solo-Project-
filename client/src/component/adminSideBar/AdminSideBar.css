@@ -1,0 +1,10 @@
+.sidebar__admim {
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  color: white;
+  padding: 10px 15px;
+  height: 1200px;
+  width: 10%;
+  gap: 20px;
+}

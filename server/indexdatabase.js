@@ -80,7 +80,7 @@ sequelize
 sequelize
   .sync({ alter: true }) // force: true because of this error :  sqlMessage: 'Too many keys specified; max 64 keys allowed',
   .then(() => console.log("Database and tables created successfully"))
-  .catch((error) => console.log("Error syncing", error));
+  .catch((error) => console.error("Error syncing database:", error));
 
 module.exports = {
   Sequelize,
