@@ -8,6 +8,13 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+const isValidImageUrl = (url) => {
+  const urlPattern = new RegExp(
+    /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp|svg|bmp|tiff))$/i
+  );
+  return urlPattern.test(url);
+};
+
 const getAllProducts = async (req, res) => {
   try {
     const products = await Product.findAll();
@@ -33,6 +40,13 @@ const addProduct = async (req, res) => {
 
     if (!images || !Array.isArray(images) || images.length < 3) {
       return res.status(400).send("At least 3 images are required.");
+    }
+
+    const invalidUrls = images.filter((image) => !isValidImageUrl(image));
+    if (invalidUrls.length > 0) {
+      return res
+        .status(400)
+        .send(`Invalid image URLs detected: ${invalidUrls.join(", ")}`);
     }
 
     const uploadedPromises = images.map((image) =>

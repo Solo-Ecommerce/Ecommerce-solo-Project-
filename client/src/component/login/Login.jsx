@@ -4,9 +4,10 @@ import phone from "../../images/phone.png";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import google from "../../images/google.png";
+import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 
-function SignIn() {
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -37,8 +38,13 @@ function SignIn() {
     axios
       .post("http://localhost:3000/users/login", { email, password })
       .then((res) => {
-        localStorage.setItem("user", res.data.token);
-        navigate("/");
+        localStorage.setItem("token", res.data.token);
+        const decoded = jwtDecode(res.data.token);
+        console.log("useeeer", decoded);
+        if (decoded.role === "user") {
+        } else {
+          navigate("/adminHomePage");
+        }
       })
       .catch((error) => {
         console.error(error);
@@ -114,4 +120,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default Login;

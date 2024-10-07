@@ -1,139 +1,3 @@
-// const { User } = require("../indexdatabase");
-// const bcrypt = require("bcryptjs");
-
-// const jwt = require("jsonwebtoken");
-// require("dotenv").config();
-// const secret = process.env.JWT_SECRET;
-
-// const getAllusers = async (req, res) => {
-//   try {
-//     const users = await User.findAll();
-//     res.status(200).send(users);
-//   } catch (err) {
-//     res.status(404).send(err);
-//   }
-// };
-
-// const getOneUser = async (req, res) => {
-//   try {
-//     const oneUser = await User.findByPk(req.params.id);
-//     res.status(200).send(oneUser);
-//   } catch (err) {
-//     res.status(404).send(err);
-//   }
-// };
-
-// const deleteUser = async (req, res) => {
-//   try {
-//     let userId = req.params.id;
-//     await User.destroy({
-//       where: {
-//         id: userId,
-//       },
-//     });
-//     res.status(200).send("Deleted user with ID:" + userId);
-//   } catch (error) {
-//     res
-//       .status(500)
-//       .send({ error: "An error occurred while deleting user item" });
-//   }
-// };
-
-// const singnIn = async (req, res) => {
-//   try {
-//     const {
-//       name,
-//       lastName,
-//       email,
-//       birthDate,
-//       address,
-//       phoneNumber,
-//       password,
-//       role,
-//     } = req.body;
-//     const isPasswordValid = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[^_\s]{6,}$/.test(
-//       password
-//     );
-//     const existingUser = await User.findOne({ where: { email } });
-//     if (existingUser) {
-//       return res.status(200).send({ message: "Email is already used" });
-//     }
-//     if (!isPasswordValid) {
-//       return res
-//         .status(400)
-//         .send({ message: "Password dont match the creteria" });
-//     }
-//     const newUser = await User.create({
-//       name,
-//       lastName,
-//       email,
-//       birthDate,
-//       address,
-//       phoneNumber,
-//       role,
-//       password: await bcrypt.hash(password, 10),
-//     });
-
-//     const token = jwt.sign(
-//       {
-//         id: newUser.id,
-//         name: newUser.name,
-//         lastName: newUser.lastName,
-//         email: newUser.email,
-//         birthDate: newUser.birthDate,
-//         address: newUser.address,
-//         phoneNumber: newUser.phoneNumber,
-//         role: newUser.role,
-//       },
-//       secret
-//     );
-//     res.status(201).send({ token, message: "Sign In successful" });
-//   } catch (error) {
-//     console.log(error);
-//     res.send(500).send({ message: "Server Error", error });
-//   }
-// };
-
-// const loginUser = async (req, res) => {
-//   try {
-//     const { email, password } = req.body;
-//     const user = await User.findOne({ where: { email } });
-
-//     if (!user) {
-//       res.status(404).send({ message: "Invalid email or password" });
-//     }
-//     isPasswordValid = await bcrypt.compare(password, user.password);
-//     if (!isPasswordValid) {
-//       res.status(404).send({ message: "Invalid email or password" });
-//     }
-//     const token = jwt.sign(
-//       {
-//         id: user.id,
-//         name: user.name,
-//         lastName: user.lastName,
-//         email: user.email,
-//         birthDate: user.birthDate,
-//         address: user.address,
-//         phoneNumber: user.phoneNumber,
-//         role: user.role,
-//       },
-//       secret
-//     );
-//     res.send({ token });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send({ message: "Server Error", error });
-//   }
-// };
-
-// module.exports = {
-//   getAllusers,
-//   getOneUser,
-//   deleteUser,
-//   singnIn,
-//   loginUser,
-// };
-
 const { User } = require("../indexdatabase");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -285,10 +149,65 @@ const loginUser = async (req, res) => {
   }
 };
 
+const addUser = async (req, res) => {
+  try {
+    const {
+      name,
+      lastName,
+      email,
+      birthDate,
+      adress,
+      phoneNumber,
+      password,
+      role,
+    } = req.body;
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isEmailValid = emailRegex.test(email);
+    if (!isEmailValid) {
+      return res.status(400).send({ message: "Invalid email format" });
+    }
+
+    const isPasswordValid = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[^_\s]{6,}$/.test(
+      password
+    );
+    if (!isPasswordValid) {
+      return res
+        .status(400)
+        .send({ message: "Password doesn't meet the criteria" });
+    }
+
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(200).send({ message: "Email is already used" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = await User.create({
+      name,
+      lastName,
+      email,
+      birthDate,
+      adress,
+      phoneNumber,
+      password: hashedPassword,
+      role,
+    });
+
+    return res
+      .status(201)
+      .send({ message: "User added successfully", newUser });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({ message: "Server Error", error });
+  }
+};
+
 module.exports = {
   getAllusers,
   getOneUser,
   deleteUser,
   singnIn,
   loginUser,
+  addUser,
 };
