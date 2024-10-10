@@ -1,7 +1,14 @@
-.admin__dashbord__container {
+/* .admin__dashbord__container {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
+  width: 100%;
+}
+.product__container__admin {
+  display: flex;
+  flex-direction: center;
+  margin-left: 0;
 }
 .admin__navbar__adminHomePage {
   background-color: black;
@@ -10,4 +17,98 @@
   color: white;
   text-align: center;
   padding: 10px 15px;
+  align-items: start;
+} */
+
+/* Container for the entire page */
+.global__container_admin__home__page {
+  display: flex;
+  flex-direction: column;
+}
+
+.product__container__admin {
+  margin-left: 200px;
+}
+.AdminSideBar__cont {
+  display: flex;
+  flex-direction: row;
+}
+.AdminSideBar__in_adminHomePage {
+  margin-left: 20px;
+}
+
+.admin__navbar__adminHomePage {
+  position: fixed;
+  top: 0;
+  left: 180px;
+  width: 100%;
+  background-color: #f4f4f4;
+  padding: 20px;
+  z-index: 100;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.admin__dashbord__container {
+  display: flex;
+  flex-direction: center;
+  margin-top: 10rem;
+  padding: 20px;
+}
+
+.product__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.product__table th,
+.product__table td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+.product__table th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.product__table td img {
+  width: 100px;
+  height: auto;
+  border-radius: 4px;
+}
+
+.product__table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.admin-sidebar {
+  width: 250px;
+  background-color: #333;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  padding: 20px;
+}
+
+.admin-sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.admin-sidebar ul li {
+  margin: 10px 0;
+}
+
+.admin-sidebar ul li a {
+  color: white;
+  text-decoration: none;
+}
+.delete-button {
+  margin-right: 20px;
 }

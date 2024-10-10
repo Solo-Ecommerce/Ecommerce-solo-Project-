@@ -4,6 +4,7 @@
   position: sticky;
   z-index: 1000;
   top: 0;
+  margin-left: -20px;
 }
 .shop__now__navbar {
   font-size: 15px;

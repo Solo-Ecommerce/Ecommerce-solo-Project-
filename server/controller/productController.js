@@ -59,19 +59,17 @@ const addProduct = async (req, res) => {
     const newarray = uploadedResults.map((el) => el.secure_url);
     console.log("new array", newarray);
 
-    // Create a new product with the uploaded images
     const newProduct = await Product.create({
       name,
       description,
       price,
       category,
-      images: newarray, // Store the array of image URLs
+      images: newarray,
     });
 
-    // Send success response with product ID
     res.status(201).send({
       message: "Product created successfully",
-      productId: newProduct.id, // Access the ID of the created product
+      productId: newProduct.id,
     });
   } catch (error) {
     console.error(error);
