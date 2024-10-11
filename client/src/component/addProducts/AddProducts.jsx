@@ -108,7 +108,7 @@ const AddProducts = () => {
     for (const image of imageFiles) {
       const formData = new FormData();
       formData.append("file", image);
-      formData.append("upload_preset", "itchigo220"); // Replace with your Cloudinary upload preset
+      formData.append("upload_preset", "naruto"); // Replace with your Cloudinary upload preset
 
       try {
         const res = await axios.post(

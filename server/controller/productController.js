@@ -1,12 +1,6 @@
-const { Product } = require("../indexdatabase");
 require("dotenv").config();
 const cloudinary = require("cloudinary").v2;
-
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+const { Product } = require("../indexdatabase");
 
 const isValidImageUrl = (url) => {
   const urlPattern = new RegExp(
@@ -35,6 +29,12 @@ const getOneProduct = async (req, res) => {
 };
 
 const addProduct = async (req, res) => {
+  console.log(
+    "hhhhhhhhhhhhhhhh",
+    process.env.CLOUDINARY_CLOUD_NAME,
+    process.env.CLOUDINARY_API_KEY,
+    process.env.CLOUDINARY_API_SECRET
+  );
   try {
     const { name, description, price, category, images } = req.body;
 
@@ -49,8 +49,14 @@ const addProduct = async (req, res) => {
         .send(`Invalid image URLs detected: ${invalidUrls.join(", ")}`);
     }
 
+    // Inline Cloudinary configuration during upload
     const uploadedPromises = images.map((image) =>
-      cloudinary.uploader.upload(image, {})
+      cloudinary.uploader.upload(image, {
+        cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+        api_key: process.env.CLOUDINARY_API_KEY,
+        api_secret: process.env.CLOUDINARY_API_SECRET,
+        resource_type: "auto",
+      })
     );
 
     const uploadedResults = await Promise.all(uploadedPromises);
@@ -102,8 +108,16 @@ const updateProduct = async (req, res) => {
 
     if (images && Array.isArray(images) && images.length > 0) {
       const uploadedImages = await Promise.all(
-        images.map((image) => cloudinary.uploader.upload(image))
+        images.map((image) =>
+          cloudinary.uploader.upload(image, {
+            cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+            api_key: process.env.CLOUDINARY_API_KEY,
+            api_secret: process.env.CLOUDINARY_API_SECRET,
+            resource_type: "auto",
+          })
+        )
       );
+      console.log("hellllllllll", images);
       imageUrls = uploadedImages.map(
         (uploadedImage) => uploadedImage.secure_url
       );
