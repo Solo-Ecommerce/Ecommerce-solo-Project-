@@ -4,7 +4,7 @@ export const getAllProducts = async () => {
   return axios
     .get(`http://localhost:3000/products/getAllProducts`)
     .then((res) => {
-      console.log(res.data);
+      console.log(res.data.reverse());
       return res.data;
     })
     .catch((error) => {

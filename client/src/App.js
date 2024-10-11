@@ -56,6 +56,7 @@ import Navbar from "./component/navbar/Navbar";
 import Login from "./component/login/Login";
 import AdminHomePage from "./component/adminHomePage/AdminHomePage";
 import AddProducts from "./component/addProducts/AddProducts";
+import UpdateProducts from "./component/updateProducts/UpdateProducts";
 
 function App() {
   const location = useLocation();
@@ -74,6 +75,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/adminhomepage" element={<AdminHomePage />} />
           <Route path="/addProducts" element={<AddProducts />} />
+          <Route path="/updateproducts" element={<UpdateProducts />} />
         </Routes>
       </div>
     </div>

@@ -7,6 +7,7 @@ import { getAllProducts, deleteProduct } from "../service/serviceProducts";
 
 function AdminHomePage() {
   const [products, setProducts] = useState([]);
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -26,6 +27,8 @@ function AdminHomePage() {
     try {
       await deleteProduct(id);
       setProducts(products.filter((product) => product.productId !== id));
+      setSuccessMessage("Le produit a été supprimé avec succès.");
+      setTimeout(() => setSuccessMessage(""), 3000);
       console.log(`Product with id ${id} deleted.`);
     } catch (err) {
       console.error("Failed to delete product:", err);
@@ -86,6 +89,9 @@ function AdminHomePage() {
           </div>
         </div>
       </div>
+      {successMessage && (
+        <div className="success-popup__admin">{successMessage}</div>
+      )}
     </div>
   );
 }

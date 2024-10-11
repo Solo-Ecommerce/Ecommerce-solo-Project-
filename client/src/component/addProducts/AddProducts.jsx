@@ -1,97 +1,18 @@
-// import React, { useState } from "react";
-// import { addProductAdmin } from "../service/serviceProducts";
-// import "./AddProducts.css";
-
-// function AddProducts() {
-//   const [name, setName] = useState("");
-//   const [description, setDescription] = useState("");
-//   const [price, setPrice] = useState("");
-//   const [category, setCategory] = useState("");
-//   const [images, setImages] = useState([]);
-//   const [addProd, setAddProd] = useState([]);
-
-//   const handleImageUpload = (e) => {
-//     const files = Array.from(e.target.files);
-//     setImages(files);
-//   };
-
-//   const handleClick = () => {
-//     const formData = new FormData();
-//     formData.append("name", name);
-//     formData.append("description", description);
-//     formData.append("price", price);
-//     formData.append("category", category);
-
-//     images.forEach((image, index) => {
-//       formData.append("images", image);
-//     });
-
-//     addProductAdmin(formData)
-//       .then((res) => {
-//         alert("Product added successfully!");
-//         setAddProd(res);
-//       })
-//       .catch((err) => console.log("The product is not added", err));
-//   };
-
-//   return (
-//     <div className="add__product__container__admin">
-//       <div className="product__details__admin">
-//         <h3 className="add__product__admin">Add New Product</h3>
-//         <input
-//           className="input__add__product__admin"
-//           type="text"
-//           placeholder="Product Name"
-//           onChange={(e) => setName(e.target.value)}
-//         />
-//         <input
-//           className="input__add__product__admin"
-//           type="text"
-//           placeholder="Description"
-//           onChange={(e) => setDescription(e.target.value)}
-//         />
-//         <input
-//           className="input__add__product__admin"
-//           type="number"
-//           placeholder="Price"
-//           onChange={(e) => setPrice(e.target.value)}
-//         />
-//         <input
-//           className="input__add__product__admin"
-//           type="text"
-//           placeholder="Category"
-//           onChange={(e) => setCategory(e.target.value)}
-//         />
-//         <input
-//           className="input__add__product__admin"
-//           type="file"
-//           accept="image/*"
-//           multiple
-//           onChange={handleImageUpload}
-//         />
-//         <button className="submit__btn" onClick={handleClick}>
-//           Add Product
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default AddProducts;
-
 import React, { useState } from "react";
 import axios from "axios";
+import "./AddProducts.css";
 
 const AddProducts = () => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     price: "",
-    category: "",
+    category: "Soins de la peau",
     images: [],
   });
 
   const [imageFiles, setImageFiles] = useState([]);
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -108,7 +29,7 @@ const AddProducts = () => {
     for (const image of imageFiles) {
       const formData = new FormData();
       formData.append("file", image);
-      formData.append("upload_preset", "naruto"); // Replace with your Cloudinary upload preset
+      formData.append("upload_preset", "naruto");
 
       try {
         const res = await axios.post(
@@ -139,65 +60,83 @@ const AddProducts = () => {
         productData
       );
       console.log("Product added:", response.data);
-      // Optionally, reset form or show success message
+      setSuccessMessage("Le produit a été ajouté avec succès !");
+      setTimeout(() => setSuccessMessage(""), 3000);
     } catch (error) {
       console.error("Error adding product:", error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Name:</label>
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Description:</label>
-        <textarea
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Price:</label>
-        <input
-          type="number"
-          name="price"
-          value={formData.price}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Category:</label>
-        <input
-          type="text"
-          name="category"
-          value={formData.category}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Images:</label>
-        <input
-          type="file"
-          multiple
-          accept="image/*"
-          onChange={handleImageChange}
-          required
-        />
-      </div>
-      <button type="submit">Add Product</button>
-    </form>
+    <div className="add-product-container">
+      <h3 className="title__product__admin">Add Product</h3>
+      <form className="add-product-form" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label className="form-label">Name:</label>
+          <input
+            className="form-input"
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label className="form-label">Description:</label>
+          <textarea
+            className="form-textarea"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label className="form-label">Price:</label>
+          <input
+            className="form-input"
+            type="number"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label className="form-label">Category:</label>
+          <select
+            className="form-input"
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            required
+          >
+            <option value="Soins de la peau">Soins de la peau</option>
+            <option value="Soins des cheveux">Soins des cheveux</option>
+            <option value="Soins des yeux">Soins des yeux</option>
+            <option value="Soins des pieds">Soins des pieds</option>
+            <option value="Cosmétiques">Cosmétiques</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label className="form-label">Images:</label>
+          <input
+            className="form-input"
+            type="file"
+            multiple
+            accept="image/*"
+            onChange={handleImageChange}
+            required
+          />
+        </div>
+        <button className="submit-button" type="submit">
+          Add Product
+        </button>
+      </form>
+
+      {successMessage && <div className="success-popup">{successMessage}</div>}
+    </div>
   );
 };
 
