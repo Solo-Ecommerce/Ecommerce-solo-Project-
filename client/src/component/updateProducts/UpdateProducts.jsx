@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./UpdateProducts.css"; // Import your CSS file
+import "./UpdateProducts.css";
 
-function UpdateProducts() {
+function UpdateProducts({ clickedElem }) {
+  console.log("heeeeeeee id", clickedElem);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -44,7 +45,7 @@ function UpdateProducts() {
     return imageUrls;
   };
 
-  const handleSubmit = async (e, id) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const imageUrls = await uploadImages();
@@ -54,8 +55,8 @@ function UpdateProducts() {
     };
 
     try {
-      const response = await axios.post(
-        `http://localhost:3000/products/update/${id}`,
+      const response = await axios.put(
+        `http://localhost:3000/products/update/${clickedElem}`,
         productData
       );
       console.log("Product modified:", response.data);

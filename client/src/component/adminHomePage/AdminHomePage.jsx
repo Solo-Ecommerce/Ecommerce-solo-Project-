@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import AdminSideBar from "../adminSideBar/AdminSideBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faSync } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 import "./AdminHomePage.css";
 import { getAllProducts, deleteProduct } from "../service/serviceProducts";
 
-function AdminHomePage() {
+function AdminHomePage({ handleClickSelectedElem }) {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [successMessage, setSuccessMessage] = useState("");
+  // const [selectedProductId, setSelectedProductId] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -34,9 +38,14 @@ function AdminHomePage() {
       console.error("Failed to delete product:", err);
     }
   };
+  const handleUpdate = (id) => {
+    handleClickSelectedElem(id);
+    navigate(`/updateproducts`);
+  };
 
   return (
     <div className="global__container_admin__home__page">
+      <h3 className="title__h3__admin">All Products</h3>
       <div className="AdminSideBar__cont">
         <AdminSideBar className="AdminSideBar__in_adminHomePage" />
         <div className="admin__dashbord__container">
@@ -59,12 +68,35 @@ function AdminHomePage() {
                 <tbody>
                   {products.map((product, index) => (
                     <tr key={index}>
-                      <td>
+                      <td className="action__admin">
+                        {/* <button
+                          className="delete-button"
+                          onClick={() => handleDelete(product.productId)}
+                        >
+                          <FontAwesomeIcon
+                            className="delete__icon__admin"
+                            icon={faTrash}
+                            onClick={handleClickUpdate(product.productId)}
+                          />
+                        </button>
+                        <button className="submit-button" type="submit">
+                          <FontAwesomeIcon icon={faSync} /> Update
+                        </button> */}
                         <button
                           className="delete-button"
                           onClick={() => handleDelete(product.productId)}
                         >
-                          <FontAwesomeIcon icon={faTrash} />
+                          <FontAwesomeIcon
+                            className="delete__icon__admin"
+                            icon={faTrash}
+                          />
+                        </button>
+
+                        <button
+                          className="submit-button"
+                          onClick={() => handleUpdate(product.productId)}
+                        >
+                          <FontAwesomeIcon icon={faSync} /> Update
                         </button>
                       </td>
                       <td>{product.name}</td>
