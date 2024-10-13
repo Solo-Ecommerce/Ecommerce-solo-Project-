@@ -1,18 +1,13 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-// import Navbar from "../navbar/Navbar";
 import "./Home.css";
+import HeroSection from "../HeroSection/HeroSection";
+import ExporeOurProducts from "../exploreOurProducts/ExporeOurProducts";
 
 function Home() {
-  const navigate = useNavigate();
-
-  const handleNavigate = () => {
-    navigate("/signin");
-  };
-
   return (
     <div className="home__container">
-      <button onClick={handleNavigate}>Click to navigate</button>
+      <HeroSection />
+      <ExporeOurProducts />
     </div>
   );
 }

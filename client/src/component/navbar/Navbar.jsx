@@ -20,6 +20,7 @@ function Navbar() {
         <p className="language_navbar">English</p>
         <FontAwesomeIcon icon={faAngleDown} className="arow__icon__navbar" />
       </div>
+
       <div className="navbar__container">
         <h2 className="navbar__exclusive">Exclusive</h2>
         <div className="navbar__menu">
