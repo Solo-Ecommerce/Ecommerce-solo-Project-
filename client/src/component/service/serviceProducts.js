@@ -12,6 +12,18 @@ export const getAllProducts = async () => {
       throw error;
     });
 };
+export const getOneProduct = async (id) => {
+  return axios
+    .get(`http://localhost:3000/products/getOneProduct/${id}`)
+    .then((res) => {
+      console.log(res.data);
+      return res.data;
+    })
+    .catch((error) => {
+      console.log("Getting Selected producted ", error);
+      throw error;
+    });
+};
 
 export const deleteProduct = async (id) => {
   return axios
@@ -24,31 +36,6 @@ export const deleteProduct = async (id) => {
       throw error;
     });
 };
-
-// export const addProductAdmin = async (
-//   name,
-//   description,
-//   price,
-//   category,
-//   images
-// ) => {
-//   return axios
-//     .post(`http://localhost:3000/products/addProduct`, {
-//       name,
-//       description,
-//       price,
-//       category,
-//       images: imageUrls,
-//     })
-//     .then((res) => {
-//       console.log(res.data);
-//       return res.data;
-//     })
-//     .catch((error) => {
-//       console.log("Error adding product", error);
-//       throw error;
-//     });
-// };
 
 export const addProductAdmin = async (
   name,

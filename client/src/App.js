@@ -12,15 +12,18 @@ import Login from "./component/login/Login";
 import AdminHomePage from "./component/adminHomePage/AdminHomePage";
 import AddProducts from "./component/addProducts/AddProducts";
 import UpdateProducts from "./component/updateProducts/UpdateProducts";
+import ProductDetails from "./component/productDetails/ProductDetails";
 
 function App() {
   const location = useLocation();
   const [clickedElem, setClickedElem] = useState("");
-
-  console.log("Current location:", location.pathname);
+  const [clickedProductDetail, setClickedProductDetail] = useState(0);
 
   const handleClickSelectedElem = (clickedId) => {
     setClickedElem(clickedId);
+  };
+  const handleClickProdDetails = (clickedProdId) => {
+    setClickedProductDetail(clickedProdId);
   };
 
   return (
@@ -31,9 +34,16 @@ function App() {
 
       <div>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={<Home handleClickProdDetails={handleClickProdDetails} />}
+          />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/login" element={<Login />} />
+          <Route
+            path="/productdetails"
+            element={<ProductDetails productDetailId={clickedProductDetail} />}
+          />
           <Route
             path="/adminhomepage"
             element={

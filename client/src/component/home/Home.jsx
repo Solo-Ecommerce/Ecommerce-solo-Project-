@@ -3,12 +3,12 @@ import "./Home.css";
 import HeroSection from "../HeroSection/HeroSection";
 import ExporeOurProducts from "../exploreOurProducts/ExporeOurProducts";
 import MainNavbar from "../navbar/MainNavbar";
-function Home() {
+function Home({ handleClickProdDetails }) {
   return (
     <div className="home__container">
       <MainNavbar />
       <HeroSection />
-      <ExporeOurProducts />
+      <ExporeOurProducts handleClickProdDetails={handleClickProdDetails} />
     </div>
   );
 }
