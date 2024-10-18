@@ -1,6 +1,4 @@
-/* MainNavbar.css */
-
-.navbar__container {
+/* MainNavbar.css .navbar__container {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -52,4 +50,105 @@
   top: 50%;
   transform: translateY(-50%);
   color: #757474;
+}
+.navbar__icon__container {
+  display: flex;
+} */
+.navbar__container__logout {
+  display: flex;
+  justify-content: space-between;
+  gap: 550px;
+}
+
+.navbar__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+.navbar__containe__logout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 550px;
+  padding: 20px 0;
+}
+
+.navbar__menu {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.navbar__cursor {
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: none;
+  color: black;
+}
+
+.navbar__cursor:hover {
+  color: #ff6700;
+}
+
+.navbar__exclusive {
+  margin-left: 15rem;
+  font-size: 2.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  color: black;
+}
+
+.navbar__search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.navbar__search input {
+  /* padding: 10px; */
+  /* padding-left: 20px; */
+
+  border: none;
+  background-color: #eeecec;
+  border-radius: 5px;
+}
+
+.navbar__search-icon {
+  position: absolute;
+  /* left: 10px; */
+  color: #757474;
+}
+
+.navbar__icon__container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navbar__icon {
+  font-size: 20px;
+  color: black;
+  /* margin-left: 15px; */
+  cursor: pointer;
+}
+
+.navbar__icon:hover {
+  color: #ff6700;
+}
+.navbar__icon__navbar__icon-chart {
+  margin-right: 30px;
+  font-size: 20px;
+  color: #757474;
+}
+.navbar__icon__navbar__icon-heart {
+  margin-right: 30px;
+  font-size: 20px;
+  color: #757474;
+}
+.navbar__icon__navbar__icon-chart:hover {
+  color: #ff6700;
+}
+.navbar__icon__navbar__icon-heart:hover {
+  color: #ff6700;
 }
