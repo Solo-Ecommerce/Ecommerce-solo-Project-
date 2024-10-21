@@ -11,16 +11,22 @@ function Categories({ SendCategory }) {
     console.log("this is the product category: ", category, "category 1");
     SendCategory(category);
 
-    if (category === "Soins de la peau") {
-      navigate("./soinspeau", { state: { category } });
-    } else if (category === "Soins des cheveux") {
-      navigate("./soinscheveux", { state: { category } });
-    } else if (category === "Soins des yeux") {
-      navigate("./soinsyeux", { state: { category } });
-    } else if (category === "Soins des pieds") {
-      navigate("./soinspieds", { state: { category } });
-    } else {
-      navigate("./cosmetiques", { state: { category } });
+    switch (category) {
+      case "Soins de la peau":
+        navigate("./soinspeau", { state: { category } });
+        break;
+      case "Soins des cheveux":
+        navigate("./soinscheveux", { state: { category } });
+        break;
+      case "Soins des yeux":
+        navigate("./soinsyeux", { state: { category } });
+        break;
+      case "Soins des pieds":
+        navigate("./soinspieds", { state: { category } });
+        break;
+      default:
+        navigate("./cosmetiques", { state: { category } });
+        break;
     }
   };
 

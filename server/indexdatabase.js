@@ -71,6 +71,18 @@ const sequelize = new Sequelize(config.database, config.user, config.password, {
 
 const User = require("./model/user.js")(sequelize, DataTypes);
 const Product = require("./model/product.js")(sequelize, DataTypes);
+const Rating = require("./model/rating.js")(sequelize, DataTypes);
+
+// User relations
+User.hasMany(Rating, { foreignKey: "userId" }); // A user can rate multiple products
+User.hasMany(Rating, { foreignKey: "userId" });
+
+// Product relations
+Product.hasMany(Rating, { foreignKey: "productId" }); // A product can be rated by multiple users
+
+// Rating relations
+Rating.belongsTo(User, { foreignKey: "userId" }); // A rating belongs to a user
+Rating.belongsTo(Product, { foreignKey: "productId" }); // A rating belongs to a product
 
 sequelize
   .authenticate()
@@ -78,7 +90,7 @@ sequelize
   .catch((error) => console.log("unable to connect to the database", error));
 
 sequelize
-  .sync({ alter: true }) // force: true because of this error :  sqlMessage: 'Too many keys specified; max 64 keys allowed',
+  .sync({ alter: true })
   .then(() => console.log("Database and tables created successfully"))
   .catch((error) => console.error("Error syncing database:", error));
 
@@ -87,4 +99,5 @@ module.exports = {
   sequelize,
   User,
   Product,
+  Rating,
 };
