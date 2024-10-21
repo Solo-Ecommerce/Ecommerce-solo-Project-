@@ -42,6 +42,7 @@ function Login() {
         const decoded = jwtDecode(res.data.token);
         console.log("useeeer", decoded);
         if (decoded.role === "user") {
+          navigate("/");
         } else {
           navigate("/adminHomePage");
         }

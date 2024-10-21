@@ -3,12 +3,17 @@ import "./Home.css";
 import HeroSection from "../HeroSection/HeroSection";
 import ExporeOurProducts from "../exploreOurProducts/ExporeOurProducts";
 import MainNavbar from "../navbar/MainNavbar";
-function Home() {
+import Categories from "../categories/Categories";
+function Home({ handleClickProdDetails, SendCategory, clickedElemCategory }) {
   return (
     <div className="home__container">
       <MainNavbar />
       <HeroSection />
-      <ExporeOurProducts />
+      <ExporeOurProducts handleClickProdDetails={handleClickProdDetails} />
+      <Categories
+        SendCategory={SendCategory}
+        clickedElemCategory={clickedElemCategory}
+      />
     </div>
   );
 }

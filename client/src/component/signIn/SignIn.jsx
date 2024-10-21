@@ -182,7 +182,7 @@ function SignIn() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [birthDate, setBirthDate] = useState("");
-  const [errorMessage, setErrorMessage] = useState(""); // State to hold error messages
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleChangeName = (e) => {
@@ -212,7 +212,7 @@ function SignIn() {
 
   const handleCreateAccount = () => {
     if (password !== confirmPassword) {
-      setErrorMessage("Passwords do not match"); // Set error message
+      setErrorMessage("Passwords do not match");
       return;
     } else {
       axios

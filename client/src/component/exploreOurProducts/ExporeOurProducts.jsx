@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "./ExporeOurProducts.css";
-import phone from "../../images/phone.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { getAllProducts } from "../service/serviceProducts";
-
-function ExporeOurProducts() {
+import { useNavigate } from "react-router-dom";
+function ExporeOurProducts({ handleClickProdDetails }) {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [visibleCount, setVisibleCount] = useState(8);
+
+  const handleProductDetails = (id) => {
+    console.log("click here this is a product is: ", id);
+    handleClickProdDetails(id);
+    navigate(`/productdetails`);
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -37,7 +43,11 @@ function ExporeOurProducts() {
 
       <div className="display__products__container">
         {products.slice(0, visibleCount).map((product, index) => (
-          <div className="product__container__explore__product" key={index}>
+          <div
+            className="product__container__explore__product"
+            key={index}
+            onClick={() => handleProductDetails(product.productId)}
+          >
             <div className="icon__img__container">
               <img
                 className="image__our__products"

@@ -12,15 +12,29 @@ import Login from "./component/login/Login";
 import AdminHomePage from "./component/adminHomePage/AdminHomePage";
 import AddProducts from "./component/addProducts/AddProducts";
 import UpdateProducts from "./component/updateProducts/UpdateProducts";
+import ProductDetails from "./component/productDetails/ProductDetails";
+import Categories from "./component/categories/Categories";
+import SoinsPeau from "./component/soinsPeau/SoinsPeau";
+import SoinsCheveux from "./component/soinsCheveux/SoinsCheveux";
+import SoinsYeux from "./component/soinsYeux/SoinsYeux";
+import SoinsPieds from "./component/soinsPieds/SoinsPieds";
+import Cosmetiques from "./component/soinsCosmetique/Cosmetiques";
 
 function App() {
   const location = useLocation();
   const [clickedElem, setClickedElem] = useState("");
-
-  console.log("Current location:", location.pathname);
+  const [clickedProductDetail, setClickedProductDetail] = useState(0);
+  const [clickedElemCategory, setClickedELemCategory] = useState("");
 
   const handleClickSelectedElem = (clickedId) => {
     setClickedElem(clickedId);
+  };
+  const handleClickProdDetails = (clickedProdId) => {
+    setClickedProductDetail(clickedProdId);
+  };
+  const handleGetProductByCategory = (clickedCategory) => {
+    console.log("Category clickeeeeeeeeed:", clickedCategory);
+    setClickedELemCategory(clickedCategory);
   };
 
   return (
@@ -31,9 +45,41 @@ function App() {
 
       <div>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={
+              <Home
+                handleClickProdDetails={handleClickProdDetails}
+                SendCategory={handleGetProductByCategory}
+              />
+            }
+          />
+          <Route path="/categories" element={<Categories />} />
+
           <Route path="/signin" element={<SignIn />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/soinspeau" element={<SoinsPeau />} />
+          <Route
+            path="/soinscheveux"
+            element={<SoinsCheveux clickedElemCategory={clickedElemCategory} />}
+          />
+          <Route
+            path="/soinsyeux"
+            element={<SoinsYeux clickedElemCategory={clickedElemCategory} />}
+          />
+          <Route
+            path="/soinspieds"
+            element={<SoinsPieds clickedElemCategory={clickedElemCategory} />}
+          />
+          <Route
+            path="/cosmetiques"
+            element={<Cosmetiques clickedElemCategory={clickedElemCategory} />}
+          />
+          <Route
+            path="/productdetails"
+            element={<ProductDetails productDetailId={clickedProductDetail} />}
+          />
+
           <Route
             path="/adminhomepage"
             element={

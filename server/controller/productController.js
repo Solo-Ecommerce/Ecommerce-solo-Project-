@@ -27,6 +27,27 @@ const getOneProduct = async (req, res) => {
     res.status(404).send(error);
   }
 };
+const getAllProductsByCategory = async (req, res) => {
+  const { category } = req.params; // Extract category from the route parameter
+
+  try {
+    const products = await Product.findAll({
+      where: { category }, // Filter by category
+    });
+
+    // If no products found for the given category
+    if (products.length === 0) {
+      return res
+        .status(404)
+        .send({ message: `No products found for category: ${category}` });
+    }
+
+    res.status(200).send(products); // Send the filtred products
+  } catch (error) {
+    console.error("Error fetching products by category:", error);
+    res.status(500).send({ error: "Server error. Please try again later." });
+  }
+};
 
 const addProduct = async (req, res) => {
   console.log(
@@ -151,4 +172,5 @@ module.exports = {
   addProduct,
   deleteProduct,
   updateProduct,
+  getAllProductsByCategory,
 };
