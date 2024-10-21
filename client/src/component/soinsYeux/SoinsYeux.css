@@ -1,0 +1,20 @@
+.stars__product {
+  display: flex;
+}
+.titre__container__soins__peau {
+  display: flex;
+  gap: 20px;
+  margin-left: 150px;
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+.color__soins__peau {
+  width: 20px;
+  height: 50px;
+  background-color: #ff6700;
+}
+.titre__soins_peau {
+  font-weight: bold;
+  font-size: 25px;
+  color: #ff6700;
+}
