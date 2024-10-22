@@ -8,13 +8,15 @@ import { FaRegHeart } from "react-icons/fa";
 import { FaTruck, FaUndo } from "react-icons/fa";
 import { getAllProducts } from "../service/serviceProducts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getAverageRatingByProductId } from "../service/serviceRating";
 import { faEye, faHeart } from "@fortawesome/free-solid-svg-icons";
 
 function ProductDetails({ productDetailId }) {
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(0);
-  const [productByCategory, setGetProductByCategory] = useState([]);
+  const [productByCategory, setProductByCategory] = useState([]);
   const [visibleCount, setVisibleCount] = useState(4);
+  const [averageRatings, setAverageRatings] = useState({});
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -54,19 +56,33 @@ function ProductDetails({ productDetailId }) {
     });
   };
 
+  // Fetch related products by category and average ratings
   useEffect(() => {
     const getProductByCategory = async () => {
       try {
         const data = await getAllProducts();
-
         const filteredProducts = data.filter(
           (item) => item.category === product.category
         );
+        setProductByCategory(filteredProducts);
 
-        setGetProductByCategory(filteredProducts);
-        console.log("Get Product by category", filteredProducts);
+        const ratingsPromises = filteredProducts.map(async (prod) => {
+          const ratingData = await getAverageRatingByProductId(prod.productId);
+          return {
+            productId: prod.productId,
+            rating: ratingData.averageRating || 1,
+          };
+        });
+
+        const ratings = await Promise.all(ratingsPromises);
+        const ratingsMap = {};
+        ratings.forEach(({ productId, rating }) => {
+          ratingsMap[productId] = parseFloat(rating);
+        });
+
+        setAverageRatings(ratingsMap);
       } catch (err) {
-        console.error("Failed to fetch products:", err);
+        console.error("Failed to fetch products or ratings:", err);
       }
     };
 
@@ -74,6 +90,7 @@ function ProductDetails({ productDetailId }) {
       getProductByCategory();
     }
   }, [product]);
+
   const handleShowMore = () => {
     setVisibleCount((prevCount) => prevCount + 4);
   };
@@ -170,6 +187,7 @@ function ProductDetails({ productDetailId }) {
           </div>
         </div>
       </div>
+
       <div className="related__product__container__details">
         <div className="related__product__details"></div>
         <div className="title__relation__product__detail">Related Products</div>
@@ -191,7 +209,10 @@ function ProductDetails({ productDetailId }) {
                 <p className="name__of__products">{product.name}</p>
                 <div className="product__detail__our__products">
                   <p className="price__products">{product.price}</p>
-                  <p>⭐⭐⭐</p>
+                  <p className="average__products">
+                    {" "}
+                    {renderStars(averageRatings[product.productId])}
+                  </p>
                 </div>
               </div>
             </div>
