@@ -13,7 +13,6 @@ export const getAllProducts = async () => {
     });
 };
 
-
 export const getOneProduct = async (id) => {
   return axios
     .get(`http://localhost:3000/products/getOneProduct/${id}`)

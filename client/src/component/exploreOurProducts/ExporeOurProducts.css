@@ -71,7 +71,7 @@
 
 .product__detail__our__products {
   display: flex;
-
+  flex-direction: row;
   gap: 10px;
 }
 
@@ -108,4 +108,7 @@
 
 .show-more-button:hover {
   background-color: #e55a00;
+}
+.average__rating__explore__product {
+  display: flex;
 }

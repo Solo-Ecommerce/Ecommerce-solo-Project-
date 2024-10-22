@@ -79,12 +79,12 @@ const getAverageRating = async (req, res) => {
       ],
     });
 
-    const averageRating = ratingData[0]?.dataValues?.averageRating;
+    // Get the average rating from the query result
+    let averageRating = ratingData[0]?.dataValues?.averageRating;
 
+    // If averageRating is null or undefined, set it to 1
     if (!averageRating) {
-      return res
-        .status(404)
-        .json({ message: "No ratings found for this product" });
+      averageRating = 1;
     }
 
     return res.status(200).json({
