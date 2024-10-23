@@ -52,7 +52,7 @@ function ExporeOurProducts({ handleClickProdDetails }) {
         const sortedProducts = data
           .map((product) => ({
             ...product,
-            averageRating: ratingsMap[product.productId] || 1,
+            averageRating: ratingsMap[product.productId] || 0,
           }))
           .sort((a, b) => b.averageRating - a.averageRating); // Sorting in descending order
 
@@ -71,7 +71,7 @@ function ExporeOurProducts({ handleClickProdDetails }) {
 
   const renderStars = (rating) => {
     const stars = [];
-    const ratingValue = rating || 1; // Use 1 if rating is undefined
+    const ratingValue = rating || 0; // Use 0 if rating is undefined
     for (let i = 1; i <= 5; i++) {
       if (i <= ratingValue) {
         stars.push(<FaStar key={i} style={{ color: "#FFD700" }} />);

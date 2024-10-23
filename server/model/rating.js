@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       value: {
         type: DataTypes.FLOAT,
         validate: {
-          min: 1.0,
+          min: 0.0,
           max: 5.0,
         },
       },

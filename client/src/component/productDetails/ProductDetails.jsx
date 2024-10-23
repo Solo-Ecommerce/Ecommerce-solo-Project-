@@ -2,10 +2,15 @@ import React, { useEffect, useState } from "react";
 import MainNavbar from "../navbar/MainNavbar";
 import { getOneProduct } from "../service/serviceProducts";
 import "./ProductDetails.css";
-import { FaStar, FaRegStar } from "react-icons/fa";
-import { FaPlus, FaMinus } from "react-icons/fa";
-import { FaRegHeart } from "react-icons/fa";
-import { FaTruck, FaUndo } from "react-icons/fa";
+import {
+  FaStar,
+  FaRegStar,
+  FaPlus,
+  FaMinus,
+  FaRegHeart,
+  FaTruck,
+  FaUndo,
+} from "react-icons/fa";
 import { getAllProducts } from "../service/serviceProducts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getAverageRatingByProductId } from "../service/serviceRating";
@@ -22,23 +27,27 @@ function ProductDetails({ productDetailId }) {
     const fetchProduct = async () => {
       try {
         const data = await getOneProduct(productDetailId);
-        setProduct(data);
+        const ratingData = await getAverageRatingByProductId(productDetailId);
+        setProduct({ ...data, averageRating: ratingData.averageRating || 0 }); // Default to 0 if no rating
       } catch (err) {
-        console.error("Failed to fetch products:", err);
+        console.error("Failed to fetch product details:", err);
       }
     };
 
     fetchProduct();
   }, [productDetailId]);
 
-  const renderStars = (rating) => {
+  const renderStars = (rating = 0) => {
+    // Default to 0 if rating is undefined
     const stars = [];
     for (let i = 1; i <= 5; i++) {
-      if (i <= rating) {
-        stars.push(<FaStar key={i} style={{ color: "#FFD700" }} />);
-      } else {
-        stars.push(<FaRegStar key={i} style={{ color: "#FFD700" }} />);
-      }
+      stars.push(
+        i <= rating ? (
+          <FaStar key={i} style={{ color: "#FFD700" }} />
+        ) : (
+          <FaRegStar key={i} style={{ color: "#FFD700" }} />
+        )
+      );
     }
     return stars;
   };
@@ -48,15 +57,10 @@ function ProductDetails({ productDetailId }) {
   };
 
   const handleDecrease = () => {
-    setQuantity((prevQuantity) => {
-      if (prevQuantity > 0) {
-        return prevQuantity - 1;
-      }
-      return 0;
-    });
+    setQuantity((prevQuantity) => (prevQuantity > 0 ? prevQuantity - 1 : 0));
   };
 
-  // Fetch related products by category and average ratings
+  // Fetch related products by category and their ratings
   useEffect(() => {
     const getProductByCategory = async () => {
       try {
@@ -70,7 +74,7 @@ function ProductDetails({ productDetailId }) {
           const ratingData = await getAverageRatingByProductId(prod.productId);
           return {
             productId: prod.productId,
-            rating: ratingData.averageRating || 1,
+            rating: ratingData.averageRating || 0,
           };
         });
 
@@ -82,7 +86,7 @@ function ProductDetails({ productDetailId }) {
 
         setAverageRatings(ratingsMap);
       } catch (err) {
-        console.error("Failed to fetch products or ratings:", err);
+        console.error("Failed to fetch related products or ratings:", err);
       }
     };
 

@@ -84,7 +84,7 @@ const getAverageRating = async (req, res) => {
 
     // If averageRating is null or undefined, set it to 1
     if (!averageRating) {
-      averageRating = 1;
+      averageRating = 0;
     }
 
     return res.status(200).json({
