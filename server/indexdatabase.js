@@ -72,17 +72,24 @@ const sequelize = new Sequelize(config.database, config.user, config.password, {
 const User = require("./model/user.js")(sequelize, DataTypes);
 const Product = require("./model/product.js")(sequelize, DataTypes);
 const Rating = require("./model/rating.js")(sequelize, DataTypes);
+const Wishlist = require("./model/wishlist.js")(sequelize, DataTypes);
 
 // User relations
 User.hasMany(Rating, { foreignKey: "userId" }); // A user can rate multiple products
-User.hasMany(Rating, { foreignKey: "userId" });
+User.hasMany(Wishlist, { foreignKey: "userId" });
 
 // Product relations
 Product.hasMany(Rating, { foreignKey: "productId" }); // A product can be rated by multiple users
+Product.hasMany(Wishlist, { foreignKey: "productId" });
 
 // Rating relations
 Rating.belongsTo(User, { foreignKey: "userId" }); // A rating belongs to a user
 Rating.belongsTo(Product, { foreignKey: "productId" }); // A rating belongs to a product
+
+// Wishlist relations
+
+Wishlist.belongsTo(User, { foreignKey: "userId" });
+Wishlist.belongsTo(Product, { foreignKey: "productId" });
 
 sequelize
   .authenticate()
@@ -100,4 +107,5 @@ module.exports = {
   User,
   Product,
   Rating,
+  Wishlist,
 };

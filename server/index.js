@@ -3,6 +3,7 @@ const cors = require("cors");
 const userRoute = require("./router/userRoute");
 const productRoute = require("./router/productRoute");
 const ratingRoute = require("./router/ratingRoute");
+const routeWishlist = require("./router/wishlistRoute");
 const cloudinary = require("cloudinary").v2;
 const PORT = 3000;
 const app = express();
@@ -19,6 +20,7 @@ app.use(cors());
 app.use("/users", userRoute);
 app.use("/products", productRoute);
 app.use("/rating", ratingRoute);
+app.use("/wishlist", routeWishlist);
 
 app.get("/", (req, res) => {
   res.send("Hello from the server!");
