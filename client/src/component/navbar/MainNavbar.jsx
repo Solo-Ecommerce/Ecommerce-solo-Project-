@@ -10,6 +10,10 @@ import { useNavigate } from "react-router-dom";
 function MainNavbar() {
   const navigate = useNavigate();
 
+  const handleNavigateToWishlist = () => {
+    navigate(`/wishlist`);
+  };
+
   const token = localStorage.getItem("token");
   let decoded = null;
 
@@ -55,7 +59,10 @@ function MainNavbar() {
               </div>
 
               <FaShoppingCart className="navbar__icon__navbar__icon-chart" />
-              <FaHeart className="navbar__icon__navbar__icon-heart" />
+              <FaHeart
+                className="navbar__icon__navbar__icon-heart"
+                onClick={handleNavigateToWishlist}
+              />
             </div>
           </div>
         </>

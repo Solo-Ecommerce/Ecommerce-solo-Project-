@@ -68,19 +68,19 @@ function Login() {
           <div className="detail__2__singnin">
             <input
               className="inputStyle"
-              type="text"
+              type="email"
               placeholder="Email"
               onChange={handleChangeEmail}
             />
             <input
               className="inputStyle "
-              type="text"
+              type="password"
               placeholder="Password"
               onChange={handleChangePassword}
             />
             <input
               className="inputStyle"
-              type="text"
+              type="password"
               placeholder="Confirm password"
               onChange={handleChangeConfirmPassword}
             />

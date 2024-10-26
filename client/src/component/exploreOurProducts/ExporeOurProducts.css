@@ -28,7 +28,8 @@
 .explorez__poduits__name {
   font-weight: bold;
   font-size: 30px;
-  margin-top: 30px;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 .display__products__container {
   display: grid;
@@ -91,6 +92,9 @@
 .icon {
   margin-top: 20px;
   color: rgb(185, 182, 182);
+}
+.icon:hover {
+  color: #ff6700;
 }
 .show-more-button {
   margin-top: 100px;

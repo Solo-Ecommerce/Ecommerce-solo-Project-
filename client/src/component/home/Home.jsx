@@ -4,12 +4,20 @@ import HeroSection from "../HeroSection/HeroSection";
 import ExporeOurProducts from "../exploreOurProducts/ExporeOurProducts";
 import MainNavbar from "../navbar/MainNavbar";
 import Categories from "../categories/Categories";
-function Home({ handleClickProdDetails, SendCategory, clickedElemCategory }) {
+function Home({
+  handleClickProdDetails,
+  SendCategory,
+  clickedElemCategory,
+  handleClickProductWishlist,
+}) {
   return (
     <div className="home__container">
-      <MainNavbar />
+      <MainNavbar handleClickProductWishlist={handleClickProductWishlist} />
       <HeroSection />
-      <ExporeOurProducts handleClickProdDetails={handleClickProdDetails} />
+      <ExporeOurProducts
+        handleClickProdDetails={handleClickProdDetails}
+        handleClickProductWishlist={handleClickProductWishlist}
+      />
       <Categories
         SendCategory={SendCategory}
         clickedElemCategory={clickedElemCategory}

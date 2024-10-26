@@ -1,21 +1,28 @@
 import React, { useEffect, useState } from "react";
 import "./ExporeOurProducts.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { getAllProducts } from "../service/serviceProducts";
 import { getAverageRatingByProductId } from "../service/serviceRating";
 import { useNavigate } from "react-router-dom";
 import { FaStar, FaRegStar } from "react-icons/fa";
+import { jwtDecode } from "jwt-decode";
+import { addToWishlist } from "../service/serviceWishlist";
 
-function ExporeOurProducts({ handleClickProdDetails }) {
+function ExporeOurProducts({
+  handleClickProdDetails,
+  handleClickProductWishlist,
+}) {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [visibleCount, setVisibleCount] = useState(8);
   const [averageRatings, setAverageRatings] = useState({});
+  const [user, setUser] = useState(null);
 
   const handleProductDetails = (id) => {
     console.log("click here this is a product is: ", id);
     handleClickProdDetails(id);
+
     navigate(`/productdetails`);
   };
 
@@ -33,12 +40,11 @@ function ExporeOurProducts({ handleClickProdDetails }) {
           );
           return {
             productId: product.productId,
-            rating: ratingAverage.averageRating || 1, // Default to 1 if not available
+            rating: ratingAverage.averageRating || 0, // Default to 0 if not available
           };
         });
 
         const ratings = await Promise.all(ratingsPromises);
-        console.log(ratings, "raaaaaaaaating");
 
         // Store average ratings in an object keyed by productId
         const ratingsMap = {};
@@ -82,6 +88,47 @@ function ExporeOurProducts({ handleClickProdDetails }) {
     return stars;
   };
 
+  useEffect(() => {
+    const token = localStorage.getItem("token"); // Get token from localStorage
+    if (token) {
+      const decoded = jwtDecode(token); // Decode the token
+      setUser(decoded); // Store the decoded user
+    }
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      console.log("Decoded userrrrrrrrrrrr:", user); // Log user when it's updated
+    }
+  }, [user]);
+  console.log("UUUUUUUUUUUUUUUUUUUUUUUUUU", user);
+
+  const handleAddProductToWishlist = async (req, res) => {
+    const { user, productId } = req.body;
+    if (!user || !productId) {
+      console.log("Please log in to add items to your wishlist.");
+      return res.status(400).json({ message: "Missing userId or productId" });
+    }
+    try {
+      await addToWishlist(user.id, productId);
+      handleClickProductWishlist(productId);
+      console.log("userId:", user.id, "productId:", productId);
+      console.log("Product added to wishlist!");
+    } catch (error) {
+      console.log(
+        "Error adding product to wishlist",
+        error.response?.data || error
+      );
+      throw error;
+    }
+  };
+
+  // const handleAddProductToWishlist = (id) => {
+  //   handleClickProductWishlist(id);
+
+  //   navigate(`/wishlist`);
+  // };
+
   return (
     <div className="container__explore__products">
       <div className="explore__product__title">
@@ -92,20 +139,23 @@ function ExporeOurProducts({ handleClickProdDetails }) {
 
       <div className="display__products__container">
         {products.slice(0, visibleCount).map((product, index) => (
-          <div
-            className="product__container__explore__product"
-            key={index}
-            onClick={() => handleProductDetails(product.productId)}
-          >
+          <div className="product__container__explore__product" key={index}>
             <div className="icon__img__container">
               <img
                 className="image__our__products"
                 src={product.images[0]}
                 alt={product.name}
+                onClick={() => handleProductDetails(product.productId)}
               />
-              <div className="display__icon__products">
-                <FontAwesomeIcon icon={faEye} className="icon" />
-                <FontAwesomeIcon icon={faHeart} className="icon" />
+              <div
+                className="display__icon__products"
+                onClick={() => handleAddProductToWishlist(product.productId)}
+              >
+                <FontAwesomeIcon
+                  icon={faHeart}
+                  style={{ fontSize: 30 }}
+                  className="icon"
+                />
               </div>
             </div>
             <div className="product__detail__container__products">

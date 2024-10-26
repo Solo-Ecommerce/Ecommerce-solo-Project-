@@ -19,12 +19,14 @@ import SoinsCheveux from "./component/soinsCheveux/SoinsCheveux";
 import SoinsYeux from "./component/soinsYeux/SoinsYeux";
 import SoinsPieds from "./component/soinsPieds/SoinsPieds";
 import Cosmetiques from "./component/soinsCosmetique/Cosmetiques";
+import WishList from "./component/wishList/WishList";
 
 function App() {
   const location = useLocation();
   const [clickedElem, setClickedElem] = useState("");
   const [clickedProductDetail, setClickedProductDetail] = useState(0);
   const [clickedElemCategory, setClickedELemCategory] = useState("");
+  const [productWishlist, setProductWishlist] = useState(0);
 
   const handleClickSelectedElem = (clickedId) => {
     setClickedElem(clickedId);
@@ -33,8 +35,10 @@ function App() {
     setClickedProductDetail(clickedProdId);
   };
   const handleGetProductByCategory = (clickedCategory) => {
-    console.log("Category clickeeeeeeeeed:", clickedCategory);
     setClickedELemCategory(clickedCategory);
+  };
+  const handleClickProductWishlist = (clickedProductWishlistId) => {
+    setProductWishlist(clickedProductWishlistId);
   };
 
   return (
@@ -51,10 +55,15 @@ function App() {
               <Home
                 handleClickProdDetails={handleClickProdDetails}
                 SendCategory={handleGetProductByCategory}
+                handleClickProductWishlist={handleClickProductWishlist}
               />
             }
           />
           <Route path="/categories" element={<Categories />} />
+          <Route
+            path="/wishlist"
+            element={<WishList productWishlist={productWishlist} />}
+          />
 
           <Route path="/signin" element={<SignIn />} />
           <Route path="/login" element={<Login />} />
