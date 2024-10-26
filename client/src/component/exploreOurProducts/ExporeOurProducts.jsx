@@ -103,26 +103,26 @@ function ExporeOurProducts({
   }, [user]);
   console.log("UUUUUUUUUUUUUUUUUUUUUUUUUU", user);
 
-  const handleAddProductToWishlist = async (req, res) => {
-    const { user, productId } = req.body;
-    if (!user || !productId) {
+  const handleAddProductToWishlist = async (productId) => {
+    if (!user) {
       console.log("Please log in to add items to your wishlist.");
-      return res.status(400).json({ message: "Missing userId or productId" });
+      return; // Optionally show a message to the user
     }
+
     try {
+      // Call the service to add the product to the wishlist
       await addToWishlist(user.id, productId);
-      handleClickProductWishlist(productId);
-      console.log("userId:", user.id, "productId:", productId);
       console.log("Product added to wishlist!");
+
+      // Optionally navigate to the wishlist page
+      // navigate(`/wishlist`);
     } catch (error) {
       console.log(
-        "Error adding product to wishlist",
+        "Error adding product to wishlist:",
         error.response?.data || error
       );
-      throw error;
     }
   };
-
   // const handleAddProductToWishlist = (id) => {
   //   handleClickProductWishlist(id);
 

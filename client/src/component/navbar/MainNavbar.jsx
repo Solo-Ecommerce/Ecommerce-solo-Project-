@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import "./MainNavbar.css";
@@ -9,22 +9,18 @@ import { useNavigate } from "react-router-dom";
 
 function MainNavbar() {
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
 
   const handleNavigateToWishlist = () => {
     navigate(`/wishlist`);
   };
 
-  const token = localStorage.getItem("token");
-  let decoded = null;
-
-  if (token) {
-    try {
-      decoded = jwtDecode(token);
-    } catch (error) {
-      console.error("Invalid token:", error);
-      localStorage.removeItem("token");
-    }
-  }
+  useEffect(() => {
+    const token = localStorage.getItem("token"); // Get token from localStorage
+    const decoded = jwtDecode(token);
+    setUser(decoded);
+    console.log(token);
+  }, []);
 
   const handleLogOut = () => {
     localStorage.removeItem("token");
@@ -33,7 +29,7 @@ function MainNavbar() {
 
   return (
     <div className="navbar__container">
-      {decoded ? (
+      {user ? (
         <>
           <h2 className="navbar__exclusive">Exclusive</h2>
           <div className="navbar__menu">

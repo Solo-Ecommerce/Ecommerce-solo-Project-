@@ -4,7 +4,7 @@ const { Wishlist, Product } = require("../indexdatabase");
 exports.addToWishlist = async (req, res) => {
   const { productId } = req.params;
   const { userId } = req.body;
-
+  console.log("Add to Wishlist:", { userId, productId });
   try {
     // Check if the product already exists in the wishlist
     const existingItem = await Wishlist.findOne({
@@ -22,6 +22,7 @@ exports.addToWishlist = async (req, res) => {
     res
       .status(500)
       .json({ message: "Failed to add product to wishlist", error });
+    console.error("Error adding to wishlist:", error);
   }
 };
 
