@@ -9,10 +9,7 @@ import { FaStar, FaRegStar } from "react-icons/fa";
 import { jwtDecode } from "jwt-decode";
 import { addToWishlist } from "../service/serviceWishlist";
 
-function ExporeOurProducts({
-  handleClickProdDetails,
-  handleClickProductWishlist,
-}) {
+function ExporeOurProducts({ handleClickProdDetails }) {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [visibleCount, setVisibleCount] = useState(8);
@@ -98,7 +95,7 @@ function ExporeOurProducts({
 
   useEffect(() => {
     if (user) {
-      console.log("Decoded userrrrrrrrrrrr:", user); // Log user when it's updated
+      console.log("Decoded userrrrrrrrrrrr:", user);
     }
   }, [user]);
   console.log("UUUUUUUUUUUUUUUUUUUUUUUUUU", user);
@@ -106,16 +103,13 @@ function ExporeOurProducts({
   const handleAddProductToWishlist = async (productId) => {
     if (!user) {
       console.log("Please log in to add items to your wishlist.");
-      return; // Optionally show a message to the user
+      return console.log("Vous devez etre connectez");
     }
 
     try {
       // Call the service to add the product to the wishlist
       await addToWishlist(user.id, productId);
       console.log("Product added to wishlist!");
-
-      // Optionally navigate to the wishlist page
-      // navigate(`/wishlist`);
     } catch (error) {
       console.log(
         "Error adding product to wishlist:",
@@ -123,11 +117,6 @@ function ExporeOurProducts({
       );
     }
   };
-  // const handleAddProductToWishlist = (id) => {
-  //   handleClickProductWishlist(id);
-
-  //   navigate(`/wishlist`);
-  // };
 
   return (
     <div className="container__explore__products">

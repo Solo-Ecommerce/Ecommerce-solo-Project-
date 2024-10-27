@@ -49,7 +49,7 @@ function SignIn() {
       return;
     } else {
       axios
-        .post(`http://localhost:3000/users/signIn`, {
+        .post(`http://localhost:3000/users/signin`, {
           name,
           lastName,
           phoneNumber,
