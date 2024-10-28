@@ -50,3 +50,10 @@
   color: white;
   margin-top: 20px;
 }
+.name__product__wishlist {
+  font-size: 20px;
+  margin-top: 15px;
+}
+.price__product__wishlist {
+  font-weight: bold;
+}
