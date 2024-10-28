@@ -6,6 +6,30 @@
   align-items: center;
   justify-content: center;
 }
+.title__container__wishlist {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 20px;
+  margin-top: 50px;
+}
+.title__wishlist {
+  color: #ff6700;
+  font-size: 25px;
+  font-weight: bold;
+}
+.little__title__wishlist {
+  margin-left: 50px;
+  margin-top: 50px;
+  font-size: 25px;
+  font-weight: bold;
+}
+.color__wishlist {
+  width: 25px;
+  height: 50px;
+  background-color: #ff6700;
+  margin-left: 50px;
+}
 
 .wishlist__container {
   display: flex;

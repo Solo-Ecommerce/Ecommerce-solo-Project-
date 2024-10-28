@@ -52,7 +52,13 @@ function WishList() {
   return (
     <div>
       <MainNavbar />
-
+      <div className="title__container__wishlist">
+        <div className="color__wishlist"></div>
+        <div className="title__wishlist">Vos Favoris</div>
+      </div>
+      <div className="little__title__wishlist">
+        Votre liste de produit favoris{" "}
+      </div>
       <div className="wishlist__grid">
         {wishlistProduct.length > 0 ? (
           wishlistProduct.map((item, index) => (
