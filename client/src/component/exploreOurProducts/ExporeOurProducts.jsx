@@ -7,59 +7,56 @@ import { getAverageRatingByProductId } from "../service/serviceRating";
 import { useNavigate } from "react-router-dom";
 import { FaStar, FaRegStar } from "react-icons/fa";
 import { jwtDecode } from "jwt-decode";
-import { addToWishlist } from "../service/serviceWishlist";
+import {
+  addToWishlist,
+  getWishlist,
+  removeFromWishlist,
+} from "../service/serviceWishlist";
 
 function ExporeOurProducts({ handleClickProdDetails }) {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [visibleCount, setVisibleCount] = useState(8);
   const [averageRatings, setAverageRatings] = useState({});
+  const [wishlistProduct, setWishlistProduct] = useState([]);
   const [user, setUser] = useState(null);
 
   const handleProductDetails = (id) => {
-    console.log("click here this is a product is: ", id);
     handleClickProdDetails(id);
-
     navigate(`/productdetails`);
   };
 
-  // Fetch all products
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const data = await getAllProducts();
         setProducts(data);
 
-        // Fetch average ratings for each product
         const ratingsPromises = data.map(async (product) => {
           const ratingAverage = await getAverageRatingByProductId(
             product.productId
           );
           return {
             productId: product.productId,
-            rating: ratingAverage.averageRating || 0, // Default to 0 if not available
+            rating: ratingAverage.averageRating || 0,
           };
         });
 
         const ratings = await Promise.all(ratingsPromises);
-
-        // Store average ratings in an object keyed by productId
         const ratingsMap = {};
         ratings.forEach(({ productId, rating }) => {
-          ratingsMap[productId] = parseFloat(rating); // Ensure rating is a number
+          ratingsMap[productId] = parseFloat(rating);
         });
         setAverageRatings(ratingsMap);
-        console.log("ratingsMap", ratingsMap);
 
-        // Sort products by average rating (from highest to lowest)
         const sortedProducts = data
           .map((product) => ({
             ...product,
             averageRating: ratingsMap[product.productId] || 0,
           }))
-          .sort((a, b) => b.averageRating - a.averageRating); // Sorting in descending order
+          .sort((a, b) => b.averageRating - a.averageRating);
 
-        setProducts(sortedProducts); // Update state with sorted products
+        setProducts(sortedProducts);
       } catch (err) {
         console.error("Failed to fetch products or ratings:", err);
       }
@@ -74,45 +71,66 @@ function ExporeOurProducts({ handleClickProdDetails }) {
 
   const renderStars = (rating) => {
     const stars = [];
-    const ratingValue = rating || 0; // Use 0 if rating is undefined
+    const ratingValue = rating || 0;
     for (let i = 1; i <= 5; i++) {
-      if (i <= ratingValue) {
-        stars.push(<FaStar key={i} style={{ color: "#FFD700" }} />);
-      } else {
-        stars.push(<FaRegStar key={i} style={{ color: "#FFD700" }} />);
-      }
+      stars.push(
+        i <= ratingValue ? (
+          <FaStar key={i} style={{ color: "#FFD700" }} />
+        ) : (
+          <FaRegStar key={i} style={{ color: "#FFD700" }} />
+        )
+      );
     }
     return stars;
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token"); // Get token from localStorage
+    const token = localStorage.getItem("token");
     if (token) {
-      const decoded = jwtDecode(token); // Decode the token
-      setUser(decoded); // Store the decoded user
+      const decoded = jwtDecode(token);
+      setUser(decoded);
     }
   }, []);
 
   useEffect(() => {
-    if (user) {
-      console.log("Decoded userrrrrrrrrrrr:", user);
-    }
+    const getWishlistByUser = async () => {
+      if (user && user.id) {
+        try {
+          const data = await getWishlist(user.id);
+          setWishlistProduct(data);
+        } catch (err) {
+          console.error("Failed to fetch wishlist:", err);
+        }
+      }
+    };
+    getWishlistByUser();
   }, [user]);
-  console.log("UUUUUUUUUUUUUUUUUUUUUUUUUU", user);
 
-  const handleAddProductToWishlist = async (productId) => {
+  const handleToggleWishlist = async (productId) => {
     if (!user) {
       console.log("Please log in to add items to your wishlist.");
-      return console.log("Vous devez etre connectez");
+      return;
     }
 
+    const isInWishlist = wishlistProduct.some(
+      (item) => item.productId === productId
+    );
+
     try {
-      // Call the service to add the product to the wishlist
-      await addToWishlist(user.id, productId);
-      console.log("Product added to wishlist!");
+      if (isInWishlist) {
+        await removeFromWishlist(user.id, productId);
+        setWishlistProduct((prevProducts) =>
+          prevProducts.filter((item) => item.productId !== productId)
+        );
+      } else {
+        await addToWishlist(user.id, productId);
+        setWishlistProduct((prevProducts) => [...prevProducts, { productId }]);
+      }
     } catch (error) {
-      console.log(
-        "Error adding product to wishlist:",
+      console.error(
+        isInWishlist
+          ? "Error removing from wishlist:"
+          : "Error adding to wishlist:",
         error.response?.data || error
       );
     }
@@ -127,37 +145,45 @@ function ExporeOurProducts({ handleClickProdDetails }) {
       <h3 className="explorez__poduits__name">Explorez nos produits </h3>
 
       <div className="display__products__container">
-        {products.slice(0, visibleCount).map((product, index) => (
-          <div className="product__container__explore__product" key={index}>
-            <div className="icon__img__container">
-              <img
-                className="image__our__products"
-                src={product.images[0]}
-                alt={product.name}
-                onClick={() => handleProductDetails(product.productId)}
-              />
-              <div
-                className="display__icon__products"
-                onClick={() => handleAddProductToWishlist(product.productId)}
-              >
-                <FontAwesomeIcon
-                  icon={faHeart}
-                  style={{ fontSize: 30 }}
-                  className="icon"
+        {products.slice(0, visibleCount).map((product, index) => {
+          const isInWishlist = wishlistProduct.some(
+            (item) => item.productId === product.productId
+          );
+          return (
+            <div className="product__container__explore__product" key={index}>
+              <div className="icon__img__container">
+                <img
+                  className="image__our__products"
+                  src={product.images[0]}
+                  alt={product.name}
+                  onClick={() => handleProductDetails(product.productId)}
                 />
+                <div
+                  className="display__icon__products"
+                  onClick={() => handleToggleWishlist(product.productId)}
+                >
+                  <FontAwesomeIcon
+                    icon={faHeart}
+                    style={{
+                      fontSize: 30,
+                      color: isInWishlist ? "#ff6700" : "rgb(185, 182, 182)",
+                    }}
+                    className={`icon ${isInWishlist ? "orange" : ""}`}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="product__detail__container__products">
-              <p className="name__of__products">{product.name}</p>
-              <div className="product__detail__our__products">
-                <p className="price__products">{product.price}</p>
-                <div className="average__rating__explore__product">
-                  {renderStars(averageRatings[product.productId])}
+              <div className="product__detail__container__products">
+                <p className="name__of__products">{product.name}</p>
+                <div className="product__detail__our__products">
+                  <p className="price__products">{product.price}</p>
+                  <div className="average__rating__explore__product">
+                    {renderStars(averageRatings[product.productId])}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {visibleCount < products.length && (
