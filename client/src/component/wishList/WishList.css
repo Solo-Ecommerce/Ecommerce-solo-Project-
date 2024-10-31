@@ -74,6 +74,9 @@
   color: white;
   margin-top: 20px;
 }
+.pannier__button__wishlist:hover {
+  background-color: #ff6700;
+}
 .name__product__wishlist {
   font-size: 20px;
   margin-top: 15px;

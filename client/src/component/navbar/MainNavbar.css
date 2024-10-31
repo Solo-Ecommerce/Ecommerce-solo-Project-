@@ -138,17 +138,37 @@
 }
 .navbar__icon__navbar__icon-chart {
   margin-right: 30px;
-  font-size: 20px;
-  color: #757474;
+  font-size: 25px;
+  color: black;
 }
 .navbar__icon__navbar__icon-heart {
   margin-right: 30px;
-  font-size: 20px;
-  color: #757474;
+  font-size: 25px;
+  color: black;
 }
 .navbar__icon__navbar__icon-chart:hover {
   color: #ff6700;
 }
 .navbar__icon__navbar__icon-heart:hover {
   color: #ff6700;
+}
+.cart__item__navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.number__of__item__in__the__cart__navbar {
+  position: absolute;
+  top: -14px;
+  right: 15px;
+  font-weight: bold;
+  color: white;
+  background-color: #ff6700;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

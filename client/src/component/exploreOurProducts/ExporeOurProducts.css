@@ -116,3 +116,12 @@
 .average__rating__explore__product {
   display: flex;
 }
+.pannier__button__exploreProduct {
+  padding: 10px 25px;
+  background-color: black;
+  color: white;
+  margin-top: 20px;
+}
+.pannier__button__exploreProduct:hover {
+  background-color: #ff6700;
+}

@@ -6,13 +6,19 @@ import "./Navbar.css";
 import { jwtDecode } from "jwt-decode";
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useStateValue } from "../../index";
 
 function MainNavbar() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [{ cart }, dispatch] = useStateValue();
 
+  console.log("caaaaaart", cart);
   const handleNavigateToWishlist = () => {
     navigate(`/wishlist`);
+  };
+  const handleNavigateToCart = () => {
+    navigate("/cart");
   };
 
   useEffect(() => {
@@ -53,8 +59,15 @@ function MainNavbar() {
                   className="navbar__search-icon"
                 />
               </div>
-
-              <FaShoppingCart className="navbar__icon__navbar__icon-chart" />
+              <div className="cart__item__navbar">
+                <div className="number__of__item__in__the__cart__navbar">
+                  {cart?.length}
+                </div>
+                <FaShoppingCart
+                  className="navbar__icon__navbar__icon-chart"
+                  onClick={handleNavigateToCart}
+                />{" "}
+              </div>
               <FaHeart
                 className="navbar__icon__navbar__icon-heart"
                 onClick={handleNavigateToWishlist}

@@ -20,6 +20,7 @@ import SoinsYeux from "./component/soinsYeux/SoinsYeux";
 import SoinsPieds from "./component/soinsPieds/SoinsPieds";
 import Cosmetiques from "./component/soinsCosmetique/Cosmetiques";
 import WishList from "./component/wishList/WishList";
+import Cart from "./component/cart/Cart";
 
 function App() {
   const location = useLocation();
@@ -102,6 +103,7 @@ function App() {
             path="/updateproducts"
             element={<UpdateProducts clickedElem={clickedElem} />}
           />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </div>
     </div>

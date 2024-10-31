@@ -12,6 +12,7 @@ import {
   getWishlist,
   removeFromWishlist,
 } from "../service/serviceWishlist";
+import { useStateValue } from "../../index";
 
 function ExporeOurProducts({ handleClickProdDetails }) {
   const navigate = useNavigate();
@@ -20,6 +21,23 @@ function ExporeOurProducts({ handleClickProdDetails }) {
   const [averageRatings, setAverageRatings] = useState({});
   const [wishlistProduct, setWishlistProduct] = useState([]);
   const [user, setUser] = useState(null);
+  const [{ cart }, dispatch] = useStateValue();
+
+  // we gonna add item to cart using redux:
+  // i need to fet the clicked product as at product details
+  const addToCart = (product) => {
+    dispatch({
+      type: "ADD_ITEM_TO_CART",
+      item: {
+        id: product.productId,
+        name: product.name,
+        image: [...product.images.slice(0, 4)],
+        price: product.price,
+        description: product.description,
+        rating: averageRatings[product.productId] || 0,
+      },
+    });
+  };
 
   const handleProductDetails = (id) => {
     handleClickProdDetails(id);
@@ -166,7 +184,7 @@ function ExporeOurProducts({ handleClickProdDetails }) {
                     icon={faHeart}
                     style={{
                       fontSize: 30,
-                      color: isInWishlist ? "#ff6700" : "rgb(185, 182, 182)",
+                      color: isInWishlist ? "#ff6700" : "rgb(0, 0, 0)",
                     }}
                     className={`icon ${isInWishlist ? "orange" : ""}`}
                   />
@@ -180,6 +198,12 @@ function ExporeOurProducts({ handleClickProdDetails }) {
                     {renderStars(averageRatings[product.productId])}
                   </div>
                 </div>
+                <button
+                  className="pannier__button__exploreProduct"
+                  onClick={() => addToCart(product)}
+                >
+                  Ajouter au pannier
+                </button>
               </div>
             </div>
           );
