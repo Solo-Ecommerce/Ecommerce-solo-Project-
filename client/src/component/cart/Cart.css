@@ -3,6 +3,16 @@
   height: 300px;
   margin-top: 0px;
 }
+.cart__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px;
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
+  margin-left: 200px;
+  margin-top: 50px;
+}
 .cart__element {
   display: flex;
   align-items: center;
@@ -20,4 +30,118 @@
   font-weight: bold;
   color: #ff6700;
   font-size: 25px;
+}
+.empty__cart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  margin-left: 500px;
+  width: 100%;
+}
+.empty__cart__shoping {
+  height: 400px;
+  width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+.text__empty__cart {
+  font-size: 25px;
+}
+.image__price__cart {
+  display: flex;
+}
+.heart__container {
+  display: flex;
+  flex-direction: column;
+}
+.buy__product__container {
+  margin-top: 40px;
+  margin-bottom: 30px;
+}
+.image__trash__container {
+  display: flex;
+  gap: 150px;
+}
+.img__product__wishlist {
+  margin-right: 150px;
+}
+.trash__cart {
+  font-size: 20px;
+}
+.trash__cart:hover {
+  color: #ff6700;
+}
+.quantity__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.wishlist__grid {
+  margin-left: 30px;
+}
+.moins__icons__wishlist {
+  color: #ff6700;
+  font-size: 25px;
+}
+.plus__icons__wishlist {
+  color: #ff6700;
+  font-size: 25px;
+}
+.payement__cart {
+  height: 30px;
+  width: 90px;
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 750px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+.popup__overlay {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(10, 3, 3, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  gap: 20px;
+}
+
+.popup__content {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 300px;
+}
+
+.popup__content h2 {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.popup__content button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.total__payement__cart {
+  font-weight: bold;
 }

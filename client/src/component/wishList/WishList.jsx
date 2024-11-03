@@ -52,6 +52,11 @@ function WishList() {
   return (
     <div>
       <MainNavbar />
+      <img
+        className="img__wishlist"
+        src="https://www.pharmaciepolygone.com/media/image/96/01/18aed99aa779c47bce62cb12dace.jpeg"
+        alt=""
+      />
       <div className="title__container__wishlist">
         <div className="color__wishlist"></div>
         <div className="title__wishlist">Vos Favoris</div>

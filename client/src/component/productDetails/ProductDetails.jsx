@@ -146,8 +146,6 @@ function ProductDetails({ productDetailId }) {
           <div className="price__product__details">{product.price}$</div>
           <div>{product.description}</div>
 
-          {/* kkl */}
-
           <div className="buy__product__container">
             <div className="nombre__of__items__product__details">
               <div

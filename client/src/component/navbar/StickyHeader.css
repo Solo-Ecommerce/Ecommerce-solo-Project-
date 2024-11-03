@@ -9,9 +9,9 @@
   color: white;
   padding: 10px;
   position: sticky;
-  top: 0; /* Sticky at the top */
+  top: 0;
   width: 100%;
-  z-index: 1000; /* Ensures it remains above other content */
+  z-index: 1000;
 }
 
 .summer__navbar {

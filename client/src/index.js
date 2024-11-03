@@ -21,11 +21,9 @@ root.render(
   //   ,
   // </React.StrictMode>
 
-  <React.StrictMode>
-    <StateProvider initialState={initialState} reducer={reducer}>
-      <App />
-    </StateProvider>
-  </React.StrictMode>
+  <StateProvider initialState={initialState} reducer={reducer}>
+    <App />
+  </StateProvider>
 );
 
 export const useStateValue = () => useContext(StateContext);
