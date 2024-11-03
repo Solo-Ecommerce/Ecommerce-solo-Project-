@@ -1,25 +1,3 @@
-/* .admin__dashbord__container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-}
-.product__container__admin {
-  display: flex;
-  flex-direction: center;
-  margin-left: 0;
-}
-.admin__navbar__adminHomePage {
-  background-color: black;
-  height: 100%;
-  width: 100%;
-  color: white;
-  text-align: center;
-  padding: 10px 15px;
-  align-items: start;
-} */
-
 .global__container_admin__home__page {
   display: flex;
   flex-direction: column;

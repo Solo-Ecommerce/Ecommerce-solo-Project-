@@ -2,19 +2,13 @@
   display: flex;
   justify-content: space-between;
   gap: 550px;
+  padding: 20px 0;
 }
 
 .navbar__container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 0;
-}
-.navbar__containe__logout {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 550px;
   padding: 20px 0;
 }
 
@@ -50,9 +44,6 @@
 }
 
 .navbar__search input {
-  /* padding: 10px; */
-  /* padding-left: 20px; */
-
   border: none;
   background-color: #eeecec;
   border-radius: 5px;
@@ -60,10 +51,10 @@
 
 .navbar__search-icon {
   position: absolute;
-  /* left: 10px; */
   color: #757474;
 }
 
+/* Icon container */
 .navbar__icon__container {
   display: flex;
   align-items: center;
@@ -73,35 +64,32 @@
 .navbar__icon {
   font-size: 20px;
   color: black;
-  /* margin-left: 15px; */
   cursor: pointer;
 }
 
 .navbar__icon:hover {
   color: #ff6700;
 }
-.navbar__icon__navbar__icon-chart {
-  margin-right: 30px;
-  font-size: 25px;
-  color: black;
-}
+
+.navbar__icon__navbar__icon-chart,
 .navbar__icon__navbar__icon-heart {
   margin-right: 30px;
   font-size: 25px;
   color: black;
 }
-.navbar__icon__navbar__icon-chart:hover {
-  color: #ff6700;
-}
+
+.navbar__icon__navbar__icon-chart:hover,
 .navbar__icon__navbar__icon-heart:hover {
   color: #ff6700;
 }
+
 .cart__item__navbar {
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
 }
+
 .number__of__item__in__the__cart__navbar {
   position: absolute;
   top: -14px;
@@ -115,4 +103,82 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .navbar__container__logout {
+    gap: 300px;
+  }
+
+  .navbar__exclusive {
+    font-size: 2rem;
+    margin-left: 5rem;
+  }
+
+  .navbar__menu {
+    gap: 30px;
+  }
+
+  .navbar__search input {
+    padding: 8px;
+  }
+
+  .navbar__cursor {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar__container,
+  .navbar__container__logout {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .navbar__exclusive {
+    font-size: 1.8rem;
+    margin-left: 0;
+  }
+
+  .navbar__menu {
+    gap: 20px;
+  }
+
+  .navbar__search input {
+    width: 80%;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar__container__logout {
+    gap: 10px;
+  }
+
+  .navbar__exclusive {
+    font-size: 1.5rem;
+  }
+
+  .navbar__menu {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .navbar__search input {
+    width: 90%;
+    padding: 6px;
+  }
+
+  .navbar__icon {
+    font-size: 18px;
+  }
+
+  .number__of__item__in__the__cart__navbar {
+    top: -10px;
+    right: 10px;
+    width: 18px;
+    height: 18px;
+  }
 }

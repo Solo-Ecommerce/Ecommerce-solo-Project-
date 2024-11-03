@@ -1,4 +1,4 @@
-/* StickyHeader.css */
+/* StickyHeader.css
 
 .navbar__header {
   display: flex;
@@ -33,4 +33,106 @@
 .arow__icon__navbar {
   margin-left: 10px;
   color: white;
+} */
+
+/* Base styling for StickyHeader */
+.navbar__header {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+  background-color: black;
+  color: white;
+  padding: 10px;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  flex-wrap: wrap;
+}
+
+/* Elements inside the StickyHeader */
+.summer__navbar {
+  margin-left: 5rem;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.shop__now__navbar {
+  font-size: 15px;
+  text-decoration: none;
+  color: white;
+}
+
+.language_navbar {
+  margin-left: 100px;
+  font-size: 15px;
+}
+
+.arow__icon__navbar {
+  margin-left: 10px;
+  color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .navbar__header {
+    gap: 15px;
+    padding: 8px;
+  }
+
+  .summer__navbar,
+  .language_navbar {
+    margin-left: 1rem;
+    font-size: 14px;
+  }
+
+  .shop__now__navbar,
+  .language_navbar {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar__header {
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 6px;
+  }
+
+  .summer__navbar,
+  .language_navbar {
+    margin-left: 0;
+    font-size: 13px;
+  }
+
+  .shop__now__navbar,
+  .language_navbar {
+    font-size: 13px;
+  }
+
+  .arow__icon__navbar {
+    margin-left: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar__header {
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+  }
+
+  .summer__navbar,
+  .shop__now__navbar,
+  .language_navbar {
+    font-size: 12px;
+    margin-left: 0;
+  }
+
+  .arow__icon__navbar {
+    font-size: 12px;
+    margin-left: 3px;
+  }
 }

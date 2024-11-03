@@ -228,7 +228,7 @@ function Cart() {
         {showPopup && (
           <div className="popup__overlay">
             <div className="popup__content">
-              <h2 className="total__payement__cart">Total Payment</h2>
+              <h2 className="total__payement__cart">Prix Totale</h2>
               <p>Total Price: ${totalPrice.toFixed(2)}</p>
               <button onClick={() => setShowPopup(false)}>Close</button>
               <button>payez</button>
