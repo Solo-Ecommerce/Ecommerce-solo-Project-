@@ -26,13 +26,13 @@
   font-weight: bold;
   margin-left: 150px;
 }
-.all__categories {
+/* .all__categories {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 150px;
   margin-top: 40px;
-}
+} */
 .space {
   display: flex;
   flex-direction: column;
@@ -60,12 +60,13 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  gap: 150px;
+  margin-top: 50px;
 }
 
-.space {
+/* .space {
   width: 120px;
-}
+} */
 
 @media (max-width: 768px) {
   .space {

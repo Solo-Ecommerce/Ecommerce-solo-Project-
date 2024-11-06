@@ -180,7 +180,11 @@ function Cart() {
                     />
                     <img
                       className="img__product__wishlist"
-                      src={item?.image[0]}
+                      src={
+                        item.image && Array.isArray(item.image)
+                          ? item.image[0]
+                          : "default-image-url"
+                      }
                       alt={item?.name}
                       style={{ width: "150px", height: "150px" }}
                     />

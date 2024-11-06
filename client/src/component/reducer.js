@@ -40,9 +40,6 @@ export const initialState = {
 };
 
 const reducer = (state, action) => {
-  {
-    console.log("Action dispatched:", action);
-  }
   switch (action.type) {
     case "ADD_ITEM_TO_CART":
       const existingItemIndex = state.cart.findIndex(
