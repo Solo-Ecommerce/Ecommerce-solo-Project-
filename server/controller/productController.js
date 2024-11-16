@@ -51,7 +51,6 @@ const getAllProductsByCategory = async (req, res) => {
 
 const addProduct = async (req, res) => {
   console.log(
-    "hhhhhhhhhhhhhhhh",
     process.env.CLOUDINARY_CLOUD_NAME,
     process.env.CLOUDINARY_API_KEY,
     process.env.CLOUDINARY_API_SECRET
@@ -138,7 +137,7 @@ const updateProduct = async (req, res) => {
           })
         )
       );
-      console.log("hellllllllll", images);
+
       imageUrls = uploadedImages.map(
         (uploadedImage) => uploadedImage.secure_url
       );

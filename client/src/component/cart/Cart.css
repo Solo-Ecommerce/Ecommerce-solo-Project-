@@ -37,7 +37,6 @@
   align-items: center;
   justify-content: center;
   margin-top: 50px;
-  margin-left: 500px;
   width: 100%;
 }
 .empty__cart__shoping {
@@ -164,4 +163,13 @@
   font-size: 24px;
   cursor: pointer;
   transition: color 0.3s;
+}
+.total__payement__cart__online {
+  background-color: #78b3ce;
+  font-weight: bold;
+  height: 45px;
+  width: 250px;
+}
+.total__payement__cart__online:hover {
+  background-color: red;
 }

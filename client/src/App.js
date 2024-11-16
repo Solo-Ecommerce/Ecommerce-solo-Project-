@@ -21,6 +21,7 @@ import SoinsPieds from "./component/soinsPieds/SoinsPieds";
 import Cosmetiques from "./component/soinsCosmetique/Cosmetiques";
 import WishList from "./component/wishList/WishList";
 import Cart from "./component/cart/Cart";
+import PayementCancel from "./component/paymentCancel/PayementCancel";
 
 function App() {
   const location = useLocation();
@@ -69,6 +70,7 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/login" element={<Login />} />
           <Route path="/soinspeau" element={<SoinsPeau />} />
+          <Route path="/cancelpayement" element={<PayementCancel />} />
           <Route
             path="/soinscheveux"
             element={<SoinsCheveux clickedElemCategory={clickedElemCategory} />}

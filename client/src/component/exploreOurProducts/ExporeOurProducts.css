@@ -16,6 +16,9 @@
   font-weight: bold;
   font-size: 25px;
 }
+.explore__product__text {
+  margin-left: 20px;
+}
 .explore__product__color {
   height: 50px;
   width: 20px;
