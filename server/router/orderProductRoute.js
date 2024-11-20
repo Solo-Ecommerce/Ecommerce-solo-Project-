@@ -1,12 +1,11 @@
-// const express = require("express");
-// const {
-//   createOrderProduct,
-//   updateOrderProduct,
-//   deleteOrderProduct,
-// } = require("../controller/orderProductControlleur");
-// const orderProductRoute = express.Router();
-// orderProductRoute.post("/createorderproduct", createOrderProduct);
-// orderProductRoute.put("/updateorderproduct", updateOrderProduct);
-// orderProductRoute.delete("/deleteorder", deleteOrderProduct);
+const express = require("express");
+const {
+  createOrderProduct,
+  getOrderProductByUserId,
+} = require("../controller/orderProductControlleur");
 
-// module.exports = orderProductRoute;
+const orderProductRoute = express.Router();
+orderProductRoute.post("/createorderproduct", createOrderProduct);
+orderProductRoute.get("/getallorder/:userId", getOrderProductByUserId);
+
+module.exports = orderProductRoute;

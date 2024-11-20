@@ -8,17 +8,12 @@ import "./Cart.css";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import StripeCheckout from "react-stripe-checkout";
+import { createOrderProd } from "../service/orderProduct";
 
 function Cart() {
   const [{ cart }, dispatch] = useStateValue();
   const [showPopup, setShowPopup] = useState(false);
   const [user, setUser] = useState(null);
-
-  // const [product, setProduct] = useState({
-  //   name: "Stripe Learning",
-  //   price: 122,
-  //   productBy: "stripe",
-  // });
 
   // Calculate total price
   const totalPrice = cart.reduce(
@@ -63,24 +58,6 @@ function Cart() {
     }
   }, []);
 
-  // const handlePayement = async () => {
-  //   console.log("Cart: ", cart);
-  //   console.log("User IDDDDDDDDDDDDDD: ", user.id);
-  //   try {
-  //     const { data } = await axios.post(
-  //       "http://localhost:3000/stripe/checkoutStripe",
-  //       {
-  //         cart,
-  //         userId: user.id,
-  //       }
-  //     );
-  //     // Redirect the user to Stripe Checkout
-  //     window.location.href = data.url;
-  //   } catch (error) {
-  //     console.error("Payment error:", error);
-  //   }
-  // };
-
   const makePaymentStripe = async (token) => {
     const body = {
       token,
@@ -97,6 +74,24 @@ function Cart() {
         body,
         { headers }
       );
+      if (response.status === 200) {
+        if (!user)
+          throw new Error("User is not defined. Cannot create orders.");
+        const orderPromises = cart.map((item) =>
+          createOrderProd({
+            userId: user.id,
+            productId: item.id,
+            quantity: item.quantity,
+            priceAtPurchase: item.price,
+            date: new Date().toISOString(),
+            orderStatus: "complete",
+          })
+        );
+
+        await Promise.all(orderPromises);
+
+        console.log("All orders created successfully");
+      }
 
       // Log the response status
       console.log("Response:", response);
@@ -107,6 +102,8 @@ function Cart() {
       console.error("Error:", err);
     }
   };
+  const formattedTotalPrice = parseFloat(totalPrice.toFixed(2));
+  const amountInCents = Math.round(formattedTotalPrice * 100);
   return (
     <div>
       <MainNavbar />
@@ -194,11 +191,10 @@ function Cart() {
               >
                 Close
               </button>
-              {/* <button onClick={handlePayement}>payez</button> */}
               <StripeCheckout
                 stripeKey="pk_test_51IVaFbFxjk8PDaTLln47UMO3u9PajFvc6GwhVkNnfTskkba8INc5zVqoobHVyLtFOkUzwMML7jMDRYrdBDhI3iKZ00HUPPYnom"
                 token={makePaymentStripe}
-                amount={totalPrice * 100}
+                amount={amountInCents.toFixed(2)}
               >
                 <button className="total__payement__cart__online">
                   Payez avec votre carte

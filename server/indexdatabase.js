@@ -10,16 +10,20 @@ const User = require("./model/user.js")(sequelize, DataTypes);
 const Product = require("./model/product.js")(sequelize, DataTypes);
 const Rating = require("./model/rating.js")(sequelize, DataTypes);
 const Wishlist = require("./model/wishlist.js")(sequelize, DataTypes);
+
 // const Payment = require("./model/payment.js")(sequelize, DataTypes);
-// const OrderProduct = require("./model/orderProduct.js")(sequelize, DataTypes);
+const OrderProduct = require("./model/orderProduct.js")(sequelize, DataTypes);
 
 // User relations
 User.hasMany(Rating, { foreignKey: "userId" }); // A user can rate multiple products
 User.hasMany(Wishlist, { foreignKey: "userId" });
+User.hasMany(OrderProduct, { foreignKey: "userId" }); // A user can have multiple orders
 
 // Product relations
 Product.hasMany(Rating, { foreignKey: "productId" }); // A product can be rated by multiple users
 Product.hasMany(Wishlist, { foreignKey: "productId" });
+Product.hasMany(OrderProduct, { foreignKey: "productId" });
+
 // Product.belongsToMany(Payment, {
 //   through: OrderProduct,
 //   foreignKey: "productId",
@@ -34,6 +38,10 @@ Rating.belongsTo(Product, { foreignKey: "productId" }); // A rating belongs to a
 
 Wishlist.belongsTo(User, { foreignKey: "userId" });
 Wishlist.belongsTo(Product, { foreignKey: "productId" });
+
+// orderProduct relation
+OrderProduct.belongsTo(User, { foreignKey: "userId" }); // An order belongs to a user
+OrderProduct.belongsTo(Product, { foreignKey: "productId" }); // An order-product record references a product
 
 // Payment relations
 // Payment.belongsTo(User, { foreignKey: "userId" });
@@ -60,6 +68,6 @@ module.exports = {
   Product,
   Rating,
   Wishlist,
-  // OrderProduct,
+  OrderProduct,
   // Payment,
 };

@@ -31,7 +31,7 @@ app.use("/products", productRoute);
 app.use("/rating", ratingRoute);
 app.use("/wishlist", routeWishlist);
 // app.use("/payment", paymentRoute);
-// app.use("/order", orderProductRoute);
+app.use("/order", orderProductRoute);
 app.use("/stripe", stripeRouter);
 
 // app.use("/stripe", stripeRoute);
